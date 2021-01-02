@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Polygon</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="module" src="./potentiallocations.js"></script>
+    <script type="module" src="./newdata.js"></script>
+    <script type="module" src="./existinglocations.js"></script>
+    <script type="module" src="./index.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbmLJqbFrko3IXFjoVmOVqUpr4Nj4gwO8&map_ids=1ecbd141c2df12ff&callback=initMap&libraries=geometry&v=weekly"
+      defer
+    ></script>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+  </head>
+  <body>
+    <div id="infobox">
+      <div id="map"></div>
+      <div id="text">
+        <div id="hm">
+          <i id="download" class="fa fa-download"></i>
+            <h2 id="name"></h2>
+          <div class="details">
+            <h4>Rural Population</h4>
+            <p id="population"></p>
+          </div>
+          <div class="details">
+            <h4>Villages</h4>
+            <span>
+              <p id="villages"></p>
+            </span>
+            
+          </div>
+          <div class="details">
+            <h4>Existing outlets</h4>
+            <p id="existing"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+        <div id="holder">
+
+        </div>
+    </div>
+  </body>
+</html>

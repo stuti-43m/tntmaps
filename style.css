@@ -1,0 +1,93 @@
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    body {
+    font-family: 'Montserrat', sans-serif;
+
+    }
+    #infobox{
+      height: 60vh;
+      width: 100vw;
+      overflow: hidden;
+      position: sticky;
+      overflow:hidden; 
+      top: 0px;
+    }
+    #map {
+      top: 0;
+      height: 100%;
+      width: 70%;
+      display: inline-block;
+    }
+    #container {
+      width: 100vw;
+      height: 100vh;
+      background-color: rgb(29, 29, 29);
+      overflow:hidden; 
+      position: absolute;
+    }
+    #inlineto {
+      display: inline-block;
+    }
+    #holder {
+      margin-left: 40px;
+      margin-right: 40px;
+      width: 100vw;
+      height: 100vh;
+    }
+    #download {
+      font-size: 9px;
+    }
+    #text { 
+      vertical-align:top; 
+      height: 60vh;
+      width: 29%;
+      background-color: rgb(54, 54, 54);
+      display: inline-block;
+    }
+    #hm {
+      height: 100%;
+      width: 100%;
+      margin-left: 10%;
+      margin-top: 10%;
+      color: rgb(234, 237, 240);
+    }
+    .selector {
+      display: inline-block;
+      vertical-align:top;
+      height: 100%;
+      width: 9vw;
+      padding-left: 2px;
+      padding-right: 5px;
+      margin-right: 5px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: rgb(234, 237, 240);
+    }
+    .headerc {
+      width: 100%;
+      height:30px;
+      position: sticky;
+      top:2px
+    }
+    .citycontainer {
+      overflow: auto;
+      margin-top: 20px;
+      overflow:auto; 
+    }
+    .city {
+      width: 100%;
+      height:30px;
+    }
+    .count {
+      font-size: 10px;
+      color: black;
+      font-weight: 700;
+      vertical-align: bottom;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
