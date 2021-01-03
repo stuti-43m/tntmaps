@@ -4,6 +4,9 @@
     font-family: 'Montserrat', sans-serif;
 
     }
+    h4 {
+      font-weight: bolder;
+    }
     #infobox{
       height: 60vh;
       width: 100vw;
@@ -21,12 +24,21 @@
     #container {
       width: 100vw;
       height: 100vh;
-      background-color: rgb(29, 29, 29);
+      background-color:#042459;
       overflow:hidden; 
       position: absolute;
     }
     #inlineto {
       display: inline-block;
+    }
+    #download {
+      display: inline-block;
+    }
+    i {
+      font-size: 20px !important;
+  }
+    #name {
+      display: inline-block
     }
     #holder {
       margin-left: 40px;
@@ -41,7 +53,7 @@
       vertical-align:top; 
       height: 60vh;
       width: 29%;
-      background-color: rgb(54, 54, 54);
+      background-color: rgb(29, 29, 29);
       display: inline-block;
     }
     #hm {
@@ -71,18 +83,20 @@
     }
     .citycontainer {
       overflow: auto;
-      margin-top: 20px;
+      margin-top: 35px;
       overflow:auto; 
     }
     .city {
       width: 100%;
       height:30px;
+      font-weight: 1000;
     }
     .count {
-      font-size: 10px;
-      color: black;
-      font-weight: 700;
-      vertical-align: bottom;
+      font-size: 11px;
+      color: rgb(199, 199, 199);
+      font-weight: 100;
+      margin-left: 10px;
+      vertical-align: middle;
     }
     /* Optional: Makes the sample page fill the window. */
     html,
