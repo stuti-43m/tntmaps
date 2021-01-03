@@ -22,41 +22,41 @@ let downloadarr = [];
 let colormapping = [{
     id:1,
     color:'#ffffff',
-    text: '< 10000'
+    text: '< 10K'
 },
 {
     id:2,
     color:'#f0f0f0',
-    text: '10000 - 50000'
+    text: '10K - 50K'
 },
 {
     id:3,
     color:'#d9d9d9',
-    text: '50000 - 70000'
+    text: '50k - 70k'
 },{
     id:4,
     color:'#bdbdbd',
-    text: '70000 - 90000'
+    text: '70K - 90K'
 },{
     id:5,
     color:'#969696',
-    text: '90000 - 150000'
+    text: '90K - 1.5L'
 },{
     id:6,
     color:'#737373',
-    text: '150000 - 250000'
+    text: '1.5L - 2.5L'
 },{
     id:7,
     color:'#525252',
-    text: '250000 - 500000'
+    text: '2.5L - 5L'
 }, {
     id:8,
     color:'#252525',
-    text: '500000 - 800000'
+    text: '5L - 8L'
 },{
     id:9,
     color:'#000000',
-    text: '> 800000'
+    text: '> 8L'
 }]
 let headers = {
     origin: "Village",
