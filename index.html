@@ -3,10 +3,14 @@
   <head>
     <title>TnT Map</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v0.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="module" src="./potentiallocations.js"></script>
-    <script type="module" src="./newdata.js"></script>
+    <script type="module" src="./usable_data/newdata.js"></script>
+    <script type="module" src="./usable_data/poptownfinal.js"></script>
+    <script type="module" src="./usable_data/popvillagefinal.js"></script>
     <script type="module" src="./existinglocations.js"></script>
     <script type="module" src="./index.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -17,6 +21,16 @@
     <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
   <body>
+    <div id="tabs">
+      <div class="tab" id="rural">
+        <p> Rural </p>
+      </div>
+      <div class="tab" id="urban">
+        <p> Urban </p>
+      </div>
+    </div>
+    <div class="separator"></div>
+    <div id="selector"></div>
     <div id="infobox">
       <div id="map"></div>
       <div id="text">
@@ -26,11 +40,11 @@
             <i id="download" class="fa fa-download"></i>
           </div>
           <div class="details">
-            <h4>Rural Population</h4>
+            <h4 id="popheading"></h4>
             <p id="population"></p>
           </div>
           <div class="details">
-            <h4>Villages</h4>
+            <h4 id="placeheading"></h4>
             <span>
               <p id="villages"></p>
             </span>
@@ -43,10 +57,18 @@
         </div>
       </div>
     </div>
-    <div id="container">
-        <div id="holder">
-
+    <div id="slider">
+      <div id="adjustments">
+        <div id="headercontainer">
+          <div id="rangeheader">Displayin results for places with population ></div>
+          <h2 id="rangeval"></h2>
+          <div id="rangeheader">people</div>
         </div>
+      </div>
+      <div class="rangeslider"> 
+        <input type="range" min="0" max="10000" value="5000" step="1000"
+                       class="myslider" id="sliderRange"> 
+      </div> 
     </div>
   </body>
 </html>
