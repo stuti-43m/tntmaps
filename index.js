@@ -70,12 +70,81 @@ let headers = {
     origin: "Village",
     bb: "Block",
     bb2: "District",
-    population:"population",
+    population:"Population",
     lat:"Lat",
     lng:"Lng",
-    neighbouringlocations:"Nearby outlets"
+    neighbouringCount:"Outlets within 15 kms"
+}
+let headersT = {
+    town: "Town",
+    distict: "District",
+    subdistrict:"Sub District",
+    population: "Population",
+    lat:"Lat",
+    lng:"Lng",
+    neighbouringCount:"Outlets within 15 kms"
 }
 window.initMap =  function() {
+    function exportCSVFile(headers, items, fileTitle) {
+        let exportabledata = []
+        for(let i=0;i<items.length;i++) {
+            let obj = {};
+            if(tab == 1) {
+                obj.origin = items[i].origin;
+                obj.bb = items[i].bb;
+                obj.bb2 = items[i].bb2;
+            } else {
+                obj.town = items[i].town;
+                obj.district = items[i].district;
+                obj.subdistrict = items[i].subdistrict;
+            }
+            obj.population = items[i].population;
+            obj.lat = items[i].lat;
+            obj.lng = items[i].lng;
+            if(items[i].neighbouringlocations) {
+                obj.neighbouringCount = items[i].neighbouringlocations.length
+            }
+            exportabledata.push(obj);
+        }
+        if (headers) {
+            exportabledata.unshift(headers);
+        }
+        // Convert Object to JSON
+        var jsonObject = JSON.stringify(exportabledata);
+
+        var array = typeof jsonObject != 'object' ? JSON.parse(jsonObject) : jsonObject;
+        var csv = '';
+
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index];
+            }
+
+            csv += line + '\r\n';
+        }
+
+        var exportedFilenmae = fileTitle + '.csv' || 'export.csv';
+
+        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        if (navigator.msSaveBlob) { // IE 10+
+            navigator.msSaveBlob(blob, exportedFilenmae);
+        } else {
+            var link = document.createElement("a");
+            if (link.download !== undefined) { // feature detection
+                // Browsers that support HTML5 download attribute
+                var url = URL.createObjectURL(blob);
+                link.setAttribute("href", url);
+                link.setAttribute("download", exportedFilenmae);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+    }
     function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
     }
@@ -135,6 +204,8 @@ window.initMap =  function() {
             rangeslider.setAttribute("value", populationLimitT);
         }
         updateMap();
+        redrawmarker(activemaker);
+        showdata(activemaker);
         //change marker sizes
         //show diff markers on click
     }
@@ -234,17 +305,18 @@ window.initMap =  function() {
         map.setZoom(10);
         map.setCenter(evt);
         if(!activemaker || activemaker != index) {
-            console.log('NAME',newdata[index].village)
+            //console.log('NAME',newdata[index].village)
             markedvillages = newdata[index].rurallist;
             placeupdated = true;
             previousmarker = activemaker;
             activemaker = index;
         } else {
-            console.log('NO UPDATE',placeupdated,previousmarker,activemaker)
+            //console.log('NO UPDATE',placeupdated,previousmarker,activemaker)
             placeupdated = false;
         }
         if(placeupdated) {
             redrawmarker(index);
+            showdata(activemaker);
         }
     }
     let redrawmarker = (index) => {
@@ -258,6 +330,7 @@ window.initMap =  function() {
         outletmarkerarr = []
 
         // add existing markers for outlets
+        //console.log('index',index)
         for(let i=0;i<locationnode[index].locationNodes.length;i++) {
             let coordinate = locationnode[index].locationNodes[i];
             //console.log('coordinate',coordinates)
@@ -290,7 +363,7 @@ window.initMap =  function() {
         for(let j=0;j<markingArr.length;j++) {
             if(markingArr[j] && markingArr[j].lat) {
                 //let coordinate = potentiallocations[i];
-                markingArr.neighbouringlocations = 0;
+                //markingArr.neighbouringlocations = 0;
                 let radius = 0.5*markingArr[j].population;
                 if(radius > 5000) {
                     radius = 5000
@@ -307,15 +380,21 @@ window.initMap =  function() {
                     radius: radius,
                     clickable:true
                 });
+                let placename; 
+                if(tab == 1) {
+                    placename = markingArr[j]['origin']
+                } else {
+                    placename = markingArr[j]['town']
+                }
                 villageCircle.addListener("click", () => {
-                    infowindow3.setContent('<h4>Population: </h4> <p>' + markingArr[j].population + '</p> <h4>Name: </h4> <p>' +markingArr[j]['origin'] + '</p> <h4>Outlets within 15km </h4><p>' + markingArr[j].neighbouringlocations.length + '</p>')
-                    console.log('VILLAGE CLICK')
+                    infowindow3.setContent('<h4>Population: </h4> <p>' + markingArr[j].population + '</p> <h4>Name: </h4> <p>' + placename + '</p> <h4>Outlets within 15km </h4><p>' + markingArr[j].neighbouringlocations.length + '</p>')
+                    //console.log('VILLAGE CLICK')
                     infowindow3.setPosition(villageCircle.center);
                     infowindow3.open(map);
                 });
                 //villageCircle.setMap(map);
                 villagemarkerarr.push(villageCircle);
-                console.log('villagemarkerarr',villagemarkerarr.length,markingArr[j].lat,markingArr[j].lng)
+                //console.log('villagemarkerarr',villagemarkerarr.length,markingArr[j].lat,markingArr[j].lng)
             }
         } 
     }
@@ -418,20 +497,22 @@ window.initMap =  function() {
         name.innerText = newdata[index].village;
         populationcount.innerText = newdata[index].population;
         //villages.innerText = newdata[index].villagelist.length;
+        let headerpick;
         if(tab == 1) {
             villagesh.populationh = 'Rural Population';
             villagesh.innerText = 'Total Villages';
             populationcount.innerText = newdata[index].ruralpopulation;
             villages.innerText = newdata[index].rurallist.length;
+            headerpick = headers;
         } else {
             villagesh.populationh = 'Urban Population';
             villagesh.innerText = 'Total Towns';
             populationcount.innerText = newdata[index].townpopulation;
             villages.innerText = newdata[index].townlist.length;
+            headerpick = headersT;
         }
         existing.innerText = newdata[index].existingplaces;
         download.onclick = () => {
-            console.log('activemaker',activemaker)
             if(activemaker == index) {
                 let data; 
                 let filename = newdata[index].village;
@@ -442,7 +523,7 @@ window.initMap =  function() {
                     data = newdata[index].townlist;
                     filename = filename+'_town';
                 }
-                exportCSVFile(headers,data,filename)
+                exportCSVFile(headerpick,data,filename)
             }
         }
     }
@@ -548,47 +629,6 @@ window.initMap =  function() {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-    }
-    function exportCSVFile(headers, items, fileTitle) {
-        if (headers) {
-            items.unshift(headers);
-        }
-        console.log('TITLE',fileTitle,items[1])
-        // Convert Object to JSON
-        var jsonObject = JSON.stringify(items);
-
-        var array = typeof jsonObject != 'object' ? JSON.parse(jsonObject) : jsonObject;
-        var csv = '';
-
-        for (var i = 0; i < array.length; i++) {
-            var line = '';
-            for (var index in array[i]) {
-                if (line != '') line += ','
-
-                line += array[i][index];
-            }
-
-            csv += line + '\r\n';
-        }
-
-        var exportedFilenmae = fileTitle + '.csv' || 'export.csv';
-
-        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        if (navigator.msSaveBlob) { // IE 10+
-            navigator.msSaveBlob(blob, exportedFilenmae);
-        } else {
-            var link = document.createElement("a");
-            if (link.download !== undefined) { // feature detection
-                // Browsers that support HTML5 download attribute
-                var url = URL.createObjectURL(blob);
-                link.setAttribute("href", url);
-                link.setAttribute("download", exportedFilenmae);
-                link.style.visibility = 'hidden';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-        }
     }
     function findvillages(index) {
         newdata[index].ruralpopulation = 0;
