@@ -3,6 +3,10 @@
 This project was made for an ice-cream manufacturing company in Madhya Pradesh(India). It was done to give them a sense of regions where they could increase their presence, based on the popluation density of the region and the data of existing outlets. 
 
 ### Overview
+<img src="https://user-images.githubusercontent.com/75906242/104985753-aa9e1d00-59df-11eb-9fb0-8dce20cad18b.png" width="50%" style="display:inline-block;">
+<img src="https://user-images.githubusercontent.com/75906242/104985753-aa9e1d00-59df-11eb-9fb0-8dce20cad18b.png" width="50%" style="display:inline-block;">
+
+
 
 ### Sourcing the data 
 To begin with, I only had the geolocations for the existing outlets.
