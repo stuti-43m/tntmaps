@@ -58,4 +58,5 @@ Below is the structure of an object in the file -
 |-existingOutletCount
 </pre>
 
-
+### Tools and Technology 
+I used Vanilla JS, Google Polyfill and Google maps API to draw out the data on the canvas and make it interactive
