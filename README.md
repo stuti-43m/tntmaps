@@ -4,7 +4,8 @@ This project was made for an ice-cream manufacturing company in Madhya Pradesh(I
 
 ### Overview
 <img src="https://user-images.githubusercontent.com/75906242/104985753-aa9e1d00-59df-11eb-9fb0-8dce20cad18b.png" width="50%" style="display:inline-block;">
-<img src="https://user-images.githubusercontent.com/75906242/104985753-aa9e1d00-59df-11eb-9fb0-8dce20cad18b.png" width="50%" style="display:inline-block;">
+<img src="https://user-images.githubusercontent.com/75906242/104986001-28622880-59e0-11eb-92c0-74cf8a989fdb.png" width="50%" style="display:inline-block;">
+- The map has 2 levels. One which gives and overview of the entire state and the second where one can diver deeper into an area.
 
 
 
